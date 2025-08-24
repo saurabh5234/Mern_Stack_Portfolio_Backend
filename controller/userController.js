@@ -3,7 +3,7 @@ import ErrorHandler from "../middlewares/error.js";
 import { User } from "../models/userSchema.js";
 import {v2 as cloudinary} from "cloudinary";
 import { generateToken } from "../utils/jwtToken.js";
-import { sendEmail } from "../utils/sendemail.js";
+import { sendEmail } from "../utils/sendEmail.js";
 import crypto from "crypto";
 
 // Handle file upload and user registration logic here
