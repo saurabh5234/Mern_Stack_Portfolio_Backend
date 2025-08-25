@@ -19,17 +19,27 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ✅ CORS configuration
+// ✅ CORS configuration with dynamic origin
+const allowedOrigins = [
+  "http://localhost:5173",    // dashboard local
+  "http://localhost:5174",    // portfolio local
+  "https://porfoliodashboardme.netlify.app", // deployed dashboard
+  "https://saurabhportfoliofrontend.netlify.app", // deployed portfolio
+];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",   // local dashboard
-      "http://localhost:5174",   // local portfolio
-      "https://porfoliodashboardme.netlify.app", // deployed dashboard (Netlify)
-      "https://mern-quiz-frontend.vercel.app",   // deployed quiz app (if needed)
-    ],
+    origin: function (origin, callback) {
+      // allow requests with no origin (like mobile apps, curl, Postman)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true, // allow cookies/auth headers
+    credentials: true,
   })
 );
 
