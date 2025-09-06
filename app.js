@@ -63,6 +63,11 @@ app.use("/api/v1/application", applicationRouter);
 app.use("/api/v1/skill", skillRouter);
 app.use("/api/v1/project", projectRoutes);
 
+// Health check / ping route
+app.get("/ping", (req, res) => {
+  res.status(200).json({ status: "ok", time: new Date().toISOString() });
+});
+
 // Database and error handler
 dbconnection();
 app.use(errorMiddleware);
