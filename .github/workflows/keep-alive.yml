@@ -12,4 +12,4 @@ jobs:
     steps:
       - name: Send Ping Request
         run: |
-          curl -L https://mern-stack-portfolio-backend-kevg.onrender.com
+          curl -L https://mern-stack-portfolio-backend-kevg.onrender.com/ping
